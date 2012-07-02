@@ -1,0 +1,8 @@
+- content_for :header do
+  %h1 Editing artist
+
+= render 'form'
+
+= link_to 'Show', user_artist_path(current_user,@artist)
+\|
+= link_to 'Back', user_artists_path(current_user)

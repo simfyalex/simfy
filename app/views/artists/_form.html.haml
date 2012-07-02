@@ -1,0 +1,10 @@
+= simple_form_for [current_user,@artist] do |f|
+  -if @artist.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@artist.errors.count, "error")} prohibited this artist from being saved:"
+      %ul
+        - @artist.errors.full_messages.each do |msg|
+          %li= msg
+  = f.input :name
+  = f.input :biography
+  = f.submit 'Save'

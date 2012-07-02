@@ -1,0 +1,13 @@
+= simple_form_for [current_user,@album], :html => {:class => 'form-horizontal' } do |f|
+  -if @album.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@album.errors.count, "error")} prohibited this album from being saved:"
+      %ul
+        - @album.errors.full_messages.each do |msg|
+          %li= msg
+  = f.association :artist
+  = f.input :label
+  = f.input :review,  :input_html => { :rows => 4 }
+  = f.input :release_at
+  = f.input :cover
+  = f.submit 'Save'

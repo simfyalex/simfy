@@ -1,0 +1,37 @@
+- content_for :header do
+  %h1=  "Artists"
+  %div.well
+    = alphabet_links
+%table.table.table-bordered.table-striped
+  %tr
+    %th Name
+    %th Biography
+    %th
+    %th
+    %th
+
+  - @artists.each do |artist|
+    %tr
+      %td= artist.name
+      %td= artist.biography
+      %td
+        - if can?( :read, artist)
+          = link_to artist_path(artist) do
+            %i.icon-tag
+            Show
+      %td
+        - if can?( :manage, artist)
+          = link_to  edit_user_artist_path(current_user,artist) do
+            %i.icon-pencil
+            Edit
+      %td
+        - if can?( :manage, artist)
+          = link_to  user_artist_path(current_user,artist), :confirm => 'Are you sure?', :method => :delete do
+            %i.icon-trash
+            Delete
+
+
+
+%br
+- if  can?( :create, :artists)
+  = link_to 'New Artist', new_user_artist_path(current_user),:class=>'btn btn-primary'

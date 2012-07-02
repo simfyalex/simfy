@@ -1,0 +1,27 @@
+- content_for :header do
+  %h1=  "Users"
+  %div.well
+    = alphabet_links
+
+
+- @users.each do |user|
+  %h3
+    = link_to user.username, user_path(user)
+  %table.table.table-bordered.table-striped
+    %thead
+      %th{:width=>"40%"}
+      %th{:width=>"60%"}
+
+    %tbody
+      - user.albums.each do |album|
+        %tr
+          %td
+            = album.label
+            %br
+            = image_tag(album.cover.thumb.url)
+          %td
+            %ol
+              - album.tracks.each do |track|
+                %li
+                  %span= track.title
+

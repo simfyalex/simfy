@@ -1,0 +1,12 @@
+- content_for :header do
+  %h1=  "Artist #{@artist.name}"
+%p#notice= notice
+
+
+%p
+  %b Biography:
+  = @artist.biography
+- if can? :manage, @artist
+  = link_to 'Edit', edit_user_artist_path(current_user,@artist)
+  \|
+= link_to 'Back', user_artists_path(current_user)

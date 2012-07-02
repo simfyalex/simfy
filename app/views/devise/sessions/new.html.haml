@@ -1,0 +1,9 @@
+%div.well{'id'=>'login'}
+  %h1 Sign in
+  = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name),:html=>{:class=>'form-vertical'}) do |f|
+    = f.input :email
+    = f.input :password
+    - if devise_mapping.rememberable?
+      = f.input :remember_me ,:as=>:boolean
+    %div= f.submit( "Sign in")
+  = render :partial => "devise/shared/links"

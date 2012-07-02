@@ -1,0 +1,11 @@
+%h1 Search#index
+- if @search
+  - @search.results.each do |record|
+    - if record.is_a?(Album)
+      %br
+      = link_to record.label, user_album_path(current_user,record)
+
+    - if record.is_a?(Artist)
+      %br
+      = record.name
+

@@ -1,0 +1,44 @@
+- content_for :header do
+  %h1=  "Albums"
+  %div.well
+    = alphabet_links
+%table.table.table-bordered.table-striped
+  %tr
+    %th Artist
+    %th Label
+    %th Label
+    %th Release at
+    %th Duration
+    %th
+    %th
+    %th
+
+  - @albums.each do |album|
+    %tr
+      %td= album.artist.name
+      %td= image_tag(album.cover.thumb.url)
+      %td= album.label
+      %td= album.release_at
+      %td= album.duration
+      %td
+        - if can?( :read, album)
+          = link_to album_path(album) do
+            %i.icon-tag
+            Show
+      %td
+        - if can?( :manage, album)
+          = link_to  edit_user_album_path(current_user,album) do
+            %i.icon-pencil
+            Edit
+      %td
+        - if can?( :manage, album)
+          = link_to  user_album_path(current_user,album), :confirm => 'Are you sure?', :method => :delete do
+            %i.icon-trash
+            Delete
+
+
+
+%br
+- if  can?( :create, :albums)
+  = link_to 'New Album', new_user_album_path(current_user) ,:class => 'btn btn-primary'
+%br

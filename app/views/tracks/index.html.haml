@@ -1,0 +1,19 @@
+%h1 Listing tracks
+
+%table
+  %tr
+    %th Label
+    %th Duration
+    %th
+    %th
+
+  - @tracks.each do |track|
+    %tr
+      %td= track.title
+      %td= track.duration_label
+      %td= link_to 'Edit', edit_album_track_path(@album,track)
+      %td= link_to 'Destroy', album_track_path(@album,track), :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Track', new_album_track_path

@@ -1,0 +1,55 @@
+- content_for :header do
+  %h1=  "Album #{@album.label}"
+  %h2=  "Album #{@album.label}"
+%p#notice= notice
+
+%p
+  %b Artist:
+  = @album.artist_id
+
+%p
+  %b Review:
+  = @album.review
+%p
+  %b Release at:
+  = @album.release_at
+%p
+  %b Duration:
+  = @album.duration
+
+%p
+  %b Number of songs:
+  = @album.tracks.count
+- if can? :manage, @album
+  = link_to 'Edit', edit_user_album_path(current_user,@album)
+  \|
+= link_to 'Back', user_albums_path(current_user)
+
+%hr
+%table.table.table-bordered.table-striped
+  %tr
+    %th Title
+    %th Duration
+    %th
+    %th
+
+  - @album.tracks.each do |track|
+    %tr
+      %td= track.title
+      %td= track.duration
+      %td
+        - if can?( :manage, track)
+          = link_to  edit_user_album_track_path(current_user,@album,track) do
+            %i.icon-pencil
+            Edit
+      %td
+        - if can?( :manage, track)
+          = link_to   user_album_track_path(current_user,@album,track), :confirm => 'Are you sure?', :method => :delete do
+            %i.icon-trash
+            Delete
+
+
+%br
+- if  can?( :create, :tracks)
+  = link_to 'New Track', new_user_album_track_path(current_user,@album) ,:class => 'btn btn-primary'
+%br

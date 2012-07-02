@@ -1,0 +1,5 @@
+- content_for :header do
+  %h1=  "New Artist"
+= render 'form'
+
+= link_to 'Back', user_artists_path(current_user)
